@@ -10,11 +10,23 @@ const redisStore = require('koa-redis')
 
 const {REDIS_CONF} = require('./conf/db')
 
+const { isProd } = require('./utils/env')
+
+//路由注册
+
 const index = require('./routes')
 const users = require('./routes/users')
+const errorViewRouter = require('./routes/view/error')
 
-// error handler
-onerror(app)
+
+// error handler 匹配error页面
+let onerrorConf = {}
+if( isProd ){
+    onerrorConf = {
+        redirect:'/error'
+    }
+}
+onerror(app, onerrorConf)
 
 // middlewares
 app.use(bodyparser({
@@ -52,8 +64,12 @@ app.use(session({
 })*/
 
 // routes
+
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+
+//404路由注册到最下面
+app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
