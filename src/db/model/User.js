@@ -8,7 +8,7 @@ const { STRING, DECIMAL } = require('../types')
 //创建User模型，数据表的名字是users
 
 const User = seq.define('user', {
-    username:{
+    userName:{
         type: STRING, //类型
         allowNull:false, //不为空
         unique:true, //唯一
@@ -19,7 +19,7 @@ const User = seq.define('user', {
         allowNull:true,
         comment:'密码'
     },
-    nickname:{
+    nickName:{
         type:STRING,
         allowNull:false,
         comment:'昵称'
