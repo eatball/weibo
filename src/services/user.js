@@ -58,7 +58,7 @@ async function createUser({userName, password, gender = 3, nickName}) {
  * @param userName
  * @returns {Promise<void>}
  */
-async function deleteUser(userName){
+async function deleteUser(userName) {
     const result = await User.destroy({
         where: {
             userName
@@ -68,10 +68,50 @@ async function deleteUser(userName){
     return result > 0
 }
 
+/**
+ * 修改用户信息
+ * @param newPassword
+ * @param newNickName
+ * @param newPicture
+ * @param newCity
+ * @param userName
+ * @param password
+ * @returns {Promise<void>}
+ */
+async function updateUser({newPassword, newNickName, newPicture, newCity}, {userName, password}) {
+    //拼接修改内容
+    const updateData = {}
+    if (newPassword) {
+        updateData.password = newPassword
+    }
+    if (newNickName) {
+        updateData.nickName = newNickName
+    }
+    if (newPicture) {
+        updateData.picture = newPicture
+    }
+    if (newCity) {
+        updateData.city = newCity
+    }
+    //拼接查询条件
+    const whereData = {
+        userName
+    }
+    if (password) {
+        whereData.password = password
+    }
+    //执行
+    const result = await User.update(updateData, {
+        where: whereData
+    })
+    return result[0] > 0 //修改的行数
+}
+
 module.exports = {
     getUserInfo,
     createUser,
-    deleteUser
+    deleteUser,
+    updateUser
 }
 
 
