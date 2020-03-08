@@ -7,6 +7,8 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
+const path = require('path')
+const koaStatic = require('koa-static')
 
 const {REDIS_CONF} = require('./conf/db')
 
@@ -20,6 +22,10 @@ const users = require('./routes/users')
 const userViewRouter = require('./routes/view/user')
 //user Api路由
 const userApiRouter = require('./routes/api/user')
+//utils api路由
+const utilsApiRouter = require('./routes/api/utils')
+
+
 //404，error
 const errorViewRouter = require('./routes/view/error')
 
@@ -39,7 +45,8 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
@@ -76,6 +83,8 @@ app.use(users.routes(), users.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 //user Api路由
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
+//utils Api路由
+app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods())
 
 //404路由注册到最下面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
