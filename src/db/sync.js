@@ -5,11 +5,11 @@
  */
 
 const seq = require('./seq')
-//require('./model')
+require('./model')
 
 //测试链接
 seq.authenticate().then(()=>{
-    console.log('ok')
+    console.log('ok1')
 }).catch(()=>{
     console.log('err')
 })

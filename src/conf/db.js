@@ -9,7 +9,7 @@ let REDIS_CONF = {
 }
 
 let MYSQL_CONF = {
-    host:'loalhost',
+    host:'localhost',
     user:'root',
     password:'123',
     port: '3306',
@@ -24,7 +24,7 @@ if(isProd){
     }
     //线上的mysql配置
     MYSQL_CONF = {
-        host:'loalhost',
+        host:'localhost',
         user:'root',
         password:'123',
         port: '3306',

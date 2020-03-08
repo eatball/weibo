@@ -1,11 +1,11 @@
 /**
- * @description sequelize 示例
+ * @description sequelize 实例
  * @author Alun
  */
 const {isProd, isTest} = require('../utils/env')
-const Sequelize = requrie('sequelize')
-const {MYSQL_CONF} = requrie('../conf/db')
-const {host, user, password, databse} = MYSQL_CONF
+const Sequelize = require('sequelize')
+const {MYSQL_CONF} = require('../conf/db')
+const {host, user, password, database} = MYSQL_CONF
 const conf = {
     host: 'localhost',
     dialect: 'mysql'
@@ -25,7 +25,7 @@ if (isProd) {
 }
 
 
-const seq = new Sequelize(databse, user, password, conf)
+const seq = new Sequelize(database, user, password, conf)
 
 /*
 测试链接

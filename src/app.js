@@ -16,6 +16,11 @@ const { isProd } = require('./utils/env')
 
 const index = require('./routes')
 const users = require('./routes/users')
+//user 页面路由
+const userViewRouter = require('./routes/view/user')
+//user Api路由
+const userApiRouter = require('./routes/api/user')
+//404，error
 const errorViewRouter = require('./routes/view/error')
 
 
@@ -67,6 +72,10 @@ app.use(session({
 
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+//user 页面路由
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+//user Api路由
+app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 
 //404路由注册到最下面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
