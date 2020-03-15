@@ -15,9 +15,8 @@ const {REDIS_CONF} = require('./conf/db')
 const { isProd } = require('./utils/env')
 
 //路由注册
-
-const index = require('./routes')
-const users = require('./routes/users')
+// blog 页面路由
+const blogViewRouter = require('./routes/view/blog')
 //user 页面路由
 const userViewRouter = require('./routes/view/user')
 //user Api路由
@@ -76,9 +75,7 @@ app.use(session({
 })*/
 
 // routes
-
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(blogViewRouter.routes(),blogViewRouter.allowedMethods())
 //user 页面路由
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 //user Api路由
