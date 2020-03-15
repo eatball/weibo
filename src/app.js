@@ -15,6 +15,7 @@ const {REDIS_CONF} = require('./conf/db')
 const { isProd } = require('./utils/env')
 
 //路由注册
+const blogHomeApiRouter = require('./routes/api/blog-home')
 // blog 页面路由
 const blogViewRouter = require('./routes/view/blog')
 //user 页面路由
@@ -76,6 +77,8 @@ app.use(session({
 
 // routes
 app.use(blogViewRouter.routes(),blogViewRouter.allowedMethods())
+//home
+app.use(blogHomeApiRouter.routes(),blogHomeApiRouter.allowedMethods())
 //user 页面路由
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 //user Api路由
